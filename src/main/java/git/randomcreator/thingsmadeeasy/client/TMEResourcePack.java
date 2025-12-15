@@ -6,7 +6,6 @@ import net.minecraft.SharedConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
-import net.minecraft.server.packs.repository.PackCompatibility;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,18 +29,18 @@ public class TMEResourcePack {
     public static void addPack(AddPackFindersEvent event) {
         if (event.getPackType() != PackType.CLIENT_RESOURCES) return;
 
-        Path assetsPath = TMEPaths.ROOT.resolve("assets");
+        // Point to the ThingsMadeEasy folder, NOT the assets subfolder
+        Path packRoot = TMEPaths.ROOT;
 
         event.addRepositorySource(consumer -> {
-
             Pack pack = Pack.create(
                     "thingsmadeeasy_external_assets",
                     Component.literal("ThingsMadeEasy Assets"),
-                    true,
+                    true,  // required (always on)
                     (id) -> new PathPackResources(
-                            id,                 // <- must match pack ID
-                            false,
-                            assetsPath          // <- this should point to "ThingsMadeEasy/assets/"
+                            id,
+                            true,  // Changed to true - this is a built-in pack
+                            packRoot  // Point to root, not assets subfolder
                     ),
                     new Pack.Info(
                             Component.literal("ThingsMadeEasy Assets"),
@@ -50,15 +49,9 @@ public class TMEResourcePack {
                     ),
                     PackType.CLIENT_RESOURCES,
                     Pack.Position.TOP,
-                    false,
+                    false,  // not hidden
                     PackSource.BUILT_IN
             );
-
-
-            if (pack != null) {
-                consumer.accept(pack);
-            }
-
 
             if (pack != null) {
                 consumer.accept(pack);

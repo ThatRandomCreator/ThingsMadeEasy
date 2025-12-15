@@ -25,6 +25,8 @@ public class TMEPaths {
         create("assets/thingsmadeeasy/models/item");
         create("assets/thingsmadeeasy/lang");
 
+        createPackMcmeta();
+
     }
 
     private static void create(String name) {
@@ -34,6 +36,25 @@ public class TMEPaths {
             throw new RuntimeException(
                     "[ThingsMadeEasy] Failed to create folder: " + name, e
             );
+        }
+    }
+
+    private static void createPackMcmeta() {
+        Path packMeta = ROOT.resolve("pack.mcmeta");
+        if (!Files.exists(packMeta)) {
+            try {
+                String content = """
+                {
+                  "pack": {
+                    "description": "ThingsMadeEasy External Assets",
+                    "pack_format": 15
+                  }
+                }
+                """;
+                Files.writeString(packMeta, content);
+            } catch (IOException e) {
+                throw new RuntimeException("[ThingsMadeEasy] Failed to create pack.mcmeta", e);
+            }
         }
     }
 }
