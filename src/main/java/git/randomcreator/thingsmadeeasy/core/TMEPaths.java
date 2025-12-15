@@ -25,8 +25,12 @@ public class TMEPaths {
         create("assets/thingsmadeeasy/models/item");
         create("assets/thingsmadeeasy/lang");
 
-        createPackMcmeta();
+        create("data");
+        create("data/minecraft/tags/items");
+        create("data/forge/tags/items");
+        create("data/thingsmadeeasy/tags/items");
 
+        createPackMcmeta();
     }
 
     private static void create(String name) {
@@ -44,13 +48,13 @@ public class TMEPaths {
         if (!Files.exists(packMeta)) {
             try {
                 String content = """
-                {
-                  "pack": {
-                    "description": "ThingsMadeEasy External Assets",
-                    "pack_format": 15
-                  }
-                }
-                """;
+                    {
+                      "pack": {
+                        "description": "ThingsMadeEasy External Assets",
+                        "pack_format": 15
+                      }
+                    }
+                    """;
                 Files.writeString(packMeta, content);
             } catch (IOException e) {
                 throw new RuntimeException("[ThingsMadeEasy] Failed to create pack.mcmeta", e);

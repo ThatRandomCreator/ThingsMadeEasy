@@ -29,18 +29,17 @@ public class TMEResourcePack {
     public static void addPack(AddPackFindersEvent event) {
         if (event.getPackType() != PackType.CLIENT_RESOURCES) return;
 
-        // Point to the ThingsMadeEasy folder, NOT the assets subfolder
         Path packRoot = TMEPaths.ROOT;
 
         event.addRepositorySource(consumer -> {
             Pack pack = Pack.create(
                     "thingsmadeeasy_external_assets",
                     Component.literal("ThingsMadeEasy Assets"),
-                    true,  // required (always on)
+                    true,
                     (id) -> new PathPackResources(
                             id,
-                            true,  // Changed to true - this is a built-in pack
-                            packRoot  // Point to root, not assets subfolder
+                            true,
+                            packRoot
                     ),
                     new Pack.Info(
                             Component.literal("ThingsMadeEasy Assets"),
@@ -49,7 +48,7 @@ public class TMEResourcePack {
                     ),
                     PackType.CLIENT_RESOURCES,
                     Pack.Position.TOP,
-                    false,  // not hidden
+                    false,
                     PackSource.BUILT_IN
             );
 

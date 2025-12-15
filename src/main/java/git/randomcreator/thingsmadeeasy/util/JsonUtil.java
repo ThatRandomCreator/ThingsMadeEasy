@@ -20,4 +20,20 @@ public class JsonUtil {
     public static int getInt(JsonObject json, String key, int def) {
         return json.has(key) ? json.get(key).getAsInt() : def;
     }
+
+    public static float getFloat(JsonObject json, String key, float def) {
+        return json.has(key) ? json.get(key).getAsFloat() : def;
+    }
+
+    public static double getDouble(JsonObject json, String key, double def) {
+        return json.has(key) ? json.get(key).getAsDouble() : def;
+    }
+
+    public static boolean getBoolean(JsonObject json, String key, boolean def) {
+        return json.has(key) ? json.get(key).getAsBoolean() : def;
+    }
+
+    public static String getString(JsonObject json, String key, String def) {
+        return json.has(key) ? json.get(key).getAsString() : def;
+    }
 }

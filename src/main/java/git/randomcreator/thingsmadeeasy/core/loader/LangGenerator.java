@@ -21,7 +21,6 @@ public class LangGenerator {
 
             JsonObject langJson;
 
-            // Load existing entries if file exists
             if (Files.exists(langPath)) {
                 langJson = JsonParser.parseString(Files.readString(langPath)).getAsJsonObject();
             } else {
@@ -30,7 +29,6 @@ public class LangGenerator {
 
             String key = "item.thingsmadeeasy." + itemId;
 
-            // Only add if it doesn't exist
             if (!langJson.has(key)) {
                 langJson.addProperty(key, itemName);
                 Files.writeString(langPath, GSON.toJson(langJson));
